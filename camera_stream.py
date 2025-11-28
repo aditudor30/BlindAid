@@ -40,16 +40,16 @@ class CameraStream:
         self.capture.release()
 
 if __name__ == "__main__":
-    print("Testare CameraStream...")
-    # Încearcă 0 sau 1. Dacă folosești DroidCam Client pe PC, de obicei e 1.
+    print("Testing CameraStream...")
+    
     cam = CameraStream(src=1) 
     
-    time.sleep(1.0) # Așteptăm să se conecteze
+    time.sleep(1.0) 
 
     while True:
         frame = cam.get_frame()
         if frame is not None:
-            cv2.imshow("Test Camera (Q pentru iesire)", frame)
+            cv2.imshow("Test Camera (Press q to exit)", frame)
         
         if cv2.waitKey(1) == ord('q'):
             break

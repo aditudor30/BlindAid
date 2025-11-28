@@ -1,0 +1,12 @@
+numpy
+opencv-python
+pillow
+pygame
+comtypes
+transformers
+accelerate
+einops
+timm
+torch
+torchvision
+torchaudio

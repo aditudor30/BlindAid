@@ -107,7 +107,7 @@ def main():
                             display_desc = clean_text
                     
                 except Exception as e:
-                    print("Context Thread Error:")
+                    print(f"Context Thread Error:{e}")
                     traceback.print_exc()
                 finally:
                     last_description_time = time.time()
@@ -117,9 +117,9 @@ def main():
             threading.Thread(target=run_description_thread, args=(frame.copy(),)).start()
             last_description_time = time.time() 
 
-        if last_danger_score > 5.0:
+        if last_danger_score > 4.0:
             calc_score = min(last_danger_score, 20.0)
-            factor = (calc_score - 5.0) / 15.0
+            factor = (calc_score - 4.0) / 16.0
             beep_interval = max(0.05, 1.0 - (factor * 0.95))
 
             if current_time - last_beep_time > beep_interval:
@@ -138,7 +138,7 @@ def main():
             status_text = "WARNING"
 
         cv2.putText(frame, f"STATUS: {status_text}", (20, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, status_color, 2)
-        cv2.putText(frame, f"PROXIMITY: {last_danger_score:.1f}", (20, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), 1)
+        cv2.putText(frame, f"PROXIMITY: {last_danger_score:.1f}", (20, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (128,128,128), 1)
         cv2.putText(frame, f"AI SEES: {display_desc}", (20, 440), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (200, 200, 255), 1)
         
         cv2.imshow("BlindAid - Vision", frame)
@@ -152,6 +152,7 @@ def main():
             break
     
     cam.stop()
+    audio.stop_all()
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
